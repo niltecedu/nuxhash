@@ -10,26 +10,26 @@ from nuxhash.utils import get_port
 
 
 ALGORITHMS = [
-    'equihash',
-    'pascal',
-    'decred',
-    #'sia',
-    #'lbry',
-    'blake2s',
+    # 'equihash',
+    # 'pascal',
+    # 'decred',
+    # 'sia',
+    # 'lbry',
+    # 'blake2s',
     'daggerhashimoto',
-    'lyra2rev2',
+    # 'lyra2rev2',
     'daggerhashimoto_decred',
-    #'daggerhashimoto_sia',
+    # 'daggerhashimoto_sia',
     'daggerhashimoto_pascal',
-    #'cryptonight',
-    'keccak',
-    'neoscrypt',
-    #'nist5',
-    'cryptonightV7',
-    'cryptonightV8',
-    'lyra2z',
-    'x16r'
-    ]
+    # 'cryptonight',
+    # 'keccak',
+    # 'neoscrypt',
+    # 'nist5',
+    # 'cryptonightV7',
+    # 'cryptonightV8',
+    # 'lyra2z',
+    # 'x16r'
+]
 NHMP_PORT = 3200
 
 
@@ -67,6 +67,7 @@ class ExcavatorServer(object):
     @property
     def settings(self):
         return None
+
     @settings.setter
     def settings(self, v):
         self._subscription = (v['nicehash']['region'],
@@ -82,6 +83,7 @@ class ExcavatorServer(object):
     @property
     def _subscription(self):
         return self.__subscription
+
     @_subscription.setter
     def _subscription(self, v):
         if v != self.__address:
@@ -94,6 +96,7 @@ class ExcavatorServer(object):
     @property
     def _address(self):
         return self.__address
+
     @_address.setter
     def _address(self, v):
         if v != self.__address:
@@ -159,7 +162,7 @@ class ExcavatorServer(object):
             'id': 1,
             'method': method,
             'params': [str(param) for param in params]
-            }
+        }
         js_data = json.dumps(command).replace('\n', '\\n') + '\n'
         response = ''
         with socket.create_connection(self._address, self.TIMEOUT) as s:
@@ -190,7 +193,7 @@ class ExcavatorServer(object):
             'id': 1,
             'method': method,
             'params': [str(param) for param in params]
-            }
+        }
         js_data = json.dumps(command).replace('\n', '\\n') + '\n'
         with socket.create_connection(self._address, self.TIMEOUT) as s:
             s.sendall(js_data.encode('ascii'))
@@ -221,7 +224,7 @@ class ExcavatorServer(object):
         device_id = self._device_map[device.pci_bus]
         if benchmarking:
             response = self.send_command(
-                    'worker.add', [f'benchmark-{algorithm}', device_id])
+                'worker.add', [f'benchmark-{algorithm}', device_id])
         else:
             response = self.send_command('worker.add', [algorithm, device_id])
         self._running_workers[(algorithm, device)] = response['worker_id']
@@ -285,14 +288,14 @@ class ESAlgorithm(ESResource):
     def _create(self):
         if self._benchmark:
             self._server.send_command(
-                    'algorithm.add', [f'benchmark-{self._algorithm}'])
+                'algorithm.add', [f'benchmark-{self._algorithm}'])
         else:
             self._server.send_command('algorithm.add', [self._algorithm])
 
     def _destroy(self):
         if self._benchmark:
             self._server.send_command(
-                    'algorithm.remove', [f'benchmark-{self._algorithm}'])
+                'algorithm.remove', [f'benchmark-{self._algorithm}'])
         else:
             self._server.send_command('algorithm.remove', [self._algorithm])
 
@@ -387,4 +390,3 @@ class Excavator(miner.Miner):
     def settings(self, v):
         miner.Miner.settings.setter(v)
         self.server.settings = v
-
