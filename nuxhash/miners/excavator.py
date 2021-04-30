@@ -11,7 +11,7 @@ from nuxhash.utils import get_port
 
 ALGORITHMS = [
     # 'equihash',
-    'pascal',
+    #'pascal',
     'decred',
     # 'sia',
     # 'lbry',
@@ -20,7 +20,7 @@ ALGORITHMS = [
     # 'lyra2rev2',
     'daggerhashimoto_decred',
     # 'daggerhashimoto_sia',
-    'daggerhashimoto_pascal',
+    #'daggerhashimoto_pascal',
     # 'cryptonight',
     # 'keccak',
     # 'neoscrypt',
