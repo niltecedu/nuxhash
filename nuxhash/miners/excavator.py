@@ -11,8 +11,8 @@ from nuxhash.utils import get_port
 
 ALGORITHMS = [
     # 'equihash',
-    # 'pascal',
-    # 'decred',
+    'pascal',
+    'decred',
     # 'sia',
     # 'lbry',
     # 'blake2s',
